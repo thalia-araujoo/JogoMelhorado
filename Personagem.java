@@ -57,20 +57,19 @@ class Personagem {
     }
 
     public void usarPoderZoro(Personagem oponente) {
-        // Lógica específica para o poder de Zoro
-        // Pode adicionar efeitos adicionais, calcular dano específico, etc.
+
         System.out.println("Zoro usa o poder!");
         oponente.sofrerDano(this.getPoder().getDano());
     }
 
     public void usarPoderKisame(Personagem oponente) {
-        // Lógica específica para o poder de Kisame
+        
         System.out.println("Kisame usa o poder!");
         oponente.sofrerDano(this.getPoder().getDano());
     }
 
     public void usarPoderLufy(Personagem oponente) {
-        // Lógica específica para o poder de Lufy
+        
         System.out.println("Lufy usa o poder!");
         oponente.sofrerDano(this.getPoder().getDano());
     }
