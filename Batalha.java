@@ -65,7 +65,7 @@ public class Batalha {
         }
     }
 
-    private void realizarAtaque(Personagem atacante, Personagem oponente) {
+    public void realizarAtaque(Personagem atacante, Personagem oponente) {
         Arma armaAtacante = atacante.getArma();
         Arma armaOponente = oponente.getArma();
 
@@ -91,19 +91,19 @@ public class Batalha {
         }
     }
 
-    private int calcularDano(Arma arma) {
+    public int calcularDano(Arma arma) {
         // Calcular o dano com base nos atributos da arma
         return arma.getForca() + arma.getPrecisao();
     }
 
-    private void exibirEstadoBatalha(Personagem jogador1, Personagem jogador2) {
+    public void exibirEstadoBatalha(Personagem jogador1, Personagem jogador2) {
         System.out.println("----- Estado da Batalha -----");
         System.out.println(jogador1.getNome() + ": Vida - " + jogador1.getVida());
         System.out.println(jogador2.getNome() + ": Vida - " + jogador2.getVida());
         System.out.println("-----------------------------");
     }
 
-    private void exibirResultadoBatalha(Personagem jogador1, Personagem jogador2) {
+    public void exibirResultadoBatalha(Personagem jogador1, Personagem jogador2) {
         System.out.println("----- Resultado da Batalha -----");
         if (jogador1.getVida() > 0) {
             System.out.println(jogador1.getNome() + " venceu!");
