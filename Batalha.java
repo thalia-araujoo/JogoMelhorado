@@ -15,7 +15,9 @@ public class Batalha {
 
         System.out.println("Você é o(a) " + jogador.getNome() + ". Seu oponente é o(a) " + oponente.getNome() + ".");
         System.out.println("\tQUE A BATALHA COMECE!\n");
-
+//Inicia um loop de batalha até que a vida de um dos personagens seja reduzida a zero.
+//Dentro do loop, o jogador escolhe entre "Atacar" ou "Usar Poder".
+//Realiza a ação escolhida, alternando entre o jogador e o oponente.
         while (jogador.getVida() > 0 && oponente.getVida() > 0) {
             System.out.println("Escolha sua ação, " + jogador.getNome() + "!");
             System.out.println("1. Atacar");
@@ -76,20 +78,37 @@ public class Batalha {
             System.out.println("O ataque com a " + armaAtacante.getNome() + " é bem-sucedido! " +
                     atacante.getNome() + " ganha a jogada!");
 
+            // Verificar se a arma tem um efeito especial
+            if (armaAtacante.getEfeitoEspecial() != null) {
+                System.out.println("Efeito especial da arma: " + armaAtacante.getEfeitoEspecial());
+            }
+
             // Descontar vida do oponente
             int dano = calcularDano(armaAtacante);
             oponente.sofrerDano(dano);
+            
+            // Exibir o dano causado
+            System.out.println("Dano causado: " + dano);
         } else if (chanceAcertoAtacante < chanceAcertoOponente) {
             System.out.println("O ataque com a " + armaOponente.getNome() + " é bem-sucedido! " +
                     oponente.getNome() + " ganha a jogada!");
 
+            // Verificar se a arma tem um efeito especial
+            if (armaOponente.getEfeitoEspecial() != null) {
+                System.out.println("Efeito especial da arma: " + armaOponente.getEfeitoEspecial());
+            }
+
             // Descontar vida do atacante
             int dano = calcularDano(armaOponente);
             atacante.sofrerDano(dano);
+            
+            // Exibir o dano causado
+            System.out.println("Dano causado: " + dano);
         } else {
             System.out.println("Ambos os ataques falharam!");
         }
     }
+    
 
     public int calcularDano(Arma arma) {
         // Calcular o dano com base nos atributos da arma
@@ -114,4 +133,7 @@ public class Batalha {
         }
         System.out.println("-------------------------------");
     }
+     /*Em resumo, a classe Batalha coordena o desenvolvimento de uma batalha
+     entre dois personagens, gerencia as escolhas dos jogadores,
+     calcula os resultados dos ataques e exibe o estado da batalha. */
 }
