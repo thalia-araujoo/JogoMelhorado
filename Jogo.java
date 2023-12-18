@@ -57,7 +57,7 @@ public class Jogo {
         // Exibir status inicial do personagem escolhido
         exibirStatusPersonagem(jogadorEscolhido);
 
-        // Iniciar batalha
+        // Iniciar batalha chamando o metodo iniciar batalha
         Batalha batalha = new Batalha();
         batalha.iniciarBatalha(jogadorEscolhido, scanner);
 
@@ -73,4 +73,8 @@ public class Jogo {
         }
         System.out.println("-----------------------------");
     }
+/*Em resumo, a classe Jogo coordena a introdução do jogo,
+ a criação dos elementos do jogo (armas, poderes, personagens)
+ e inicia a batalha com o personagem escolhido pelo jogador. */
+   
 }
