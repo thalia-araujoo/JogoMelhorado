@@ -1,4 +1,4 @@
-// Classe base para Personagem
+
 class Personagem {
     private String nome;
     private int vida;
@@ -44,6 +44,8 @@ class Personagem {
         this.mana -= custoMana;
     }
 
+/*Verifica se o personagem possui um poder especial.
+Se sim, utiliza o poder chamando o método usarPoder da instância de Poder. */
     public String usarPoder(Personagem oponente) {
         if (this.getPoder() != null) {
             String nomePoder = this.getPoder().usarPoder(this, oponente);
