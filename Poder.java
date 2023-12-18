@@ -20,7 +20,9 @@ class Poder {
     public int getDano() {
         return dano;
     }
-
+//aq ele vai verificar se o atacante tem mana suficiente para usar poder, se ele tiver
+// vai ser exibido ua mensagem dizendo q ele usou o poder e retorn onome 
+//do poder usado.
     public String usarPoder(Personagem atacante, Personagem oponente) {
         if (atacante.temManaSuficiente(custoMana)) {
             System.out.println(atacante.getNome() + " usa " + nome + "!");
