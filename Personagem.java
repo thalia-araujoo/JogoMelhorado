@@ -55,7 +55,7 @@ Se sim, utiliza o poder chamando o método usarPoder da instância de Poder. */
         } else {
             System.out.println("Este personagem não possui um poder associado.");
         }
-        return nome;
+        return nomePoder;
     }
 
     public void usarPoderZoro(Personagem oponente) {
