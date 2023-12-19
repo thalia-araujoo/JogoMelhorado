@@ -1,6 +1,8 @@
+
 import java.util.Scanner;
 
-public class Batalha {
+// Classe Batalha
+class Batalha {
     public void iniciarBatalha(Personagem jogador, Scanner scanner) {
         System.out.println("Preparando-se para a batalha!\n");
 
@@ -13,11 +15,15 @@ public class Batalha {
         int escolhaOponente = scanner.nextInt();
         Personagem oponente = escolherOponente(escolhaOponente);
 
-        System.out.println("Você é o(a) " + jogador.getNome() + ". Seu oponente é o(a) " + oponente.getNome() + ".");
+        exibirStatusPersonagem(oponente);
+
+        System.out.println("\nVocê é o(a) " + jogador.getNome() + ". Seu oponente é o(a) " + oponente.getNome() + ".");
         System.out.println("\tQUE A BATALHA COMECE!\n");
-//Inicia um loop de batalha até que a vida de um dos personagens seja reduzida a zero.
-//Dentro do loop, o jogador escolhe entre "Atacar" ou "Usar Poder".
-//Realiza a ação escolhida, alternando entre o jogador e o oponente.
+        
+        //Inicia um loop de batalha até que a vida de um dos personagens seja reduzida a zero.
+        //Dentro do loop, o jogador escolhe entre "Atacar" ou "Usar Poder".
+        //Realiza a ação escolhida, alternando entre o jogador e o oponente.
+
         while (jogador.getVida() > 0 && oponente.getVida() > 0) {
             System.out.println("Escolha sua ação, " + jogador.getNome() + "!");
             System.out.println("1. Atacar");
@@ -27,21 +33,15 @@ public class Batalha {
 
             switch (escolhaAcao) {
                 case 1:
-                    // Ataque
                     realizarAtaque(jogador, oponente);
                     break;
                 case 2:
-                    // Usar Poder
-                    String nomePoder = jogador.usarPoder(oponente);
-                    if (nomePoder != null) {
-                        System.out.println(jogador.getNome() + " usou o poder: " + nomePoder);
-                    }
+                    jogador.usarPoder(oponente);
                     break;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
 
-            // Troca de papéis para o próximo turno
             Personagem temp = jogador;
             jogador = oponente;
             oponente = temp;
@@ -55,11 +55,11 @@ public class Batalha {
     public Personagem escolherOponente(int escolhaOponente) {
         switch (escolhaOponente) {
             case 1:
-                return new Zoro("Zoro", 100, new Arma("Espada Enma", 500, 80, null), new Poder("Envenenamento", 20, 40));
+                return new Zoro("Zoro", 100, new Arma("Espada Enma", 40, 47, "Envenenamento"), new Poder("Envenenamento", escolhaOponente, escolhaOponente));
             case 2:
-                return new Kisame("Kisame", 100, new Arma("Samehada", 300, 60, null), new Poder("Congelamento", 30, 50));
+                return new Kisame("Kisame", 100, new Arma("Samehada", 45, 60, "Congelamento"), new Poder("Congelamento", escolhaOponente, escolhaOponente));
             case 3:
-                return new Lufy("Lufy", 100, new Arma("Bala De Borracha", 700, 100, "Endurecimento"), new Poder("Endurecimento", 70, 90));
+                return new Lufy("Lufy", 100, new Arma("Haki", 55, 40, "Fogo"), new Poder("Fogo", escolhaOponente, escolhaOponente));
             default:
                 System.out.println("Escolha inválida. Encerrando o jogo.");
                 System.exit(0);
@@ -67,6 +67,8 @@ public class Batalha {
         }
     }
 
+    //verifica a chance do atacante e do oponente de ganhar a batalha, sendo o calculo o mesmo para os dois, usando como principio.
+    //a força e precisao.
     public void realizarAtaque(Personagem atacante, Personagem oponente) {
         Arma armaAtacante = atacante.getArma();
         Arma armaOponente = oponente.getArma();
@@ -78,43 +80,36 @@ public class Batalha {
             System.out.println("O ataque com a " + armaAtacante.getNome() + " é bem-sucedido! " +
                     atacante.getNome() + " ganha a jogada!");
 
-            // Verificar se a arma tem um efeito especial
             if (armaAtacante.getEfeitoEspecial() != null) {
                 System.out.println("Efeito especial da arma: " + armaAtacante.getEfeitoEspecial());
             }
 
-            // Descontar vida do oponente
             int dano = calcularDano(armaAtacante);
             oponente.sofrerDano(dano);
-            
-            // Exibir o dano causado
+
             System.out.println("Dano causado: " + dano);
         } else if (chanceAcertoAtacante < chanceAcertoOponente) {
             System.out.println("O ataque com a " + armaOponente.getNome() + " é bem-sucedido! " +
                     oponente.getNome() + " ganha a jogada!");
 
-            // Verificar se a arma tem um efeito especial
             if (armaOponente.getEfeitoEspecial() != null) {
                 System.out.println("Efeito especial da arma: " + armaOponente.getEfeitoEspecial());
             }
 
-            // Descontar vida do atacante
             int dano = calcularDano(armaOponente);
             atacante.sofrerDano(dano);
-            
-            // Exibir o dano causado
+
             System.out.println("Dano causado: " + dano);
         } else {
             System.out.println("Ambos os ataques falharam!");
         }
     }
-    
 
     public int calcularDano(Arma arma) {
-        // Calcular o dano com base nos atributos da arma
         return arma.getForca() + arma.getPrecisao();
     }
 
+    //metodo para exibir o estado da batalha
     public void exibirEstadoBatalha(Personagem jogador1, Personagem jogador2) {
         System.out.println("----- Estado da Batalha -----");
         System.out.println(jogador1.getNome() + ": Vida - " + jogador1.getVida());
@@ -122,18 +117,28 @@ public class Batalha {
         System.out.println("-----------------------------");
     }
 
+    //metodo para exibir o resultado da batalha
     public void exibirResultadoBatalha(Personagem jogador1, Personagem jogador2) {
         System.out.println("----- Resultado da Batalha -----");
         if (jogador1.getVida() > 0) {
-            System.out.println(jogador1.getNome() + " venceu!");
+            System.out.println(jogador1.getNome() + " venceu!\n");
+            System.out.println("Fim da Batalha!");
         } else if (jogador2.getVida() > 0) {
-            System.out.println(jogador2.getNome() + " venceu!");
+            System.out.println(jogador2.getNome() + " venceu!\n");
+            System.out.println("Fim da Batalha!");
         } else {
             System.out.println("Empate!");
         }
         System.out.println("-------------------------------");
     }
-     /*Em resumo, a classe Batalha coordena o desenvolvimento de uma batalha
-     entre dois personagens, gerencia as escolhas dos jogadores,
-     calcula os resultados dos ataques e exibe o estado da batalha. */
+
+    public static void exibirStatusPersonagem(Personagem jogadorOponente) {
+        System.out.println("----- Status de " + jogadorOponente.getNome() + " -----");
+        System.out.println("Vida: " + jogadorOponente.getVida());
+        System.out.println("Arma: " + jogadorOponente.getArma().getNome());
+        if (jogadorOponente.getPoder() != null) {
+            System.out.println("Poder: " + jogadorOponente.getPoder().getNome());
+        }
+        System.out.println("-----------------------------");
+    }
 }
